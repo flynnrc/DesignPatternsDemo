@@ -12,9 +12,11 @@ namespace PatternsTests
         [TestMethod]
         public void Strategy_MinStrategy_GetsMinNumber()
         {
+            //Strategy Pattern
+            //Test that one concrete strategy is working
+
             //Arrange
             var numbers = new List<int>() { 1, 2, 3, 4, 5};
-            //var strat = new SomeStrategyDeterminer().GetCurrentStrategy(2);
             var strat = new ConcreteStrategyGetMin();
             var context = new Context(strat);
 
@@ -27,9 +29,11 @@ namespace PatternsTests
         [TestMethod]
         public void Strategy_MaxStrategy_GetsMinNumber()
         {
+            //Strategy Pattern
+            //Test that one concrete strategy is working
+
             //Arrange
             var numbers = new List<int>() { 1, 2, 3, 4, 5 };
-            //var strat = new SomeStrategyDeterminer().GetCurrentStrategy(2);
             var strat = new ConcreteStrategyGetMax();
             var context = new Context(strat);
 
@@ -40,8 +44,11 @@ namespace PatternsTests
         }
 
         [TestMethod]
-        public void Strategy_CanUpdateStrategy()
+        public void Strategy_CanSwitchStrategyAtRuntime()
         {
+            //Strategy Pattern
+            //Test that strategy can be swapped at runtime
+
             //Arrange
             //var numbers = new List<int>() { 1, 2, 3, 4, 5 };
             var strat = new ConcreteStrategyGetMax();

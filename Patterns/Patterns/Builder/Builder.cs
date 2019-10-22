@@ -7,14 +7,12 @@ namespace Patterns.Builder
     //Note: This is demo code only for quick viewing, normally each class would have its own file
 
     //Builder is a creational pattern that allows you to construct complex objects step by step
-    //The builder allows the creation of different types and representations of an Object
-    //Builder can cut down on class creep, use best judgement to determine if it's worth implementing
-    //Different builders can execute the same task in various ways.
+    //The builder pattern allows the creation of different types and representations of the Object being built
+    //Builder can cut down on class creep
 
-    //This example is building the object Robot
+    //This demo is building a Robot
 
-    //IRobotBuilder is one specific contract for constructing Robots
-    //Different RobotBuilder contracts could exist
+    //IRobotBuilder is one specific contract for constructing Robots, there can be different contracts for a Robot
     public interface IRobotBuilder
     {
         //Added return type of IRobotBuilder in order to to enable fluid syntax
@@ -30,7 +28,7 @@ namespace Patterns.Builder
         //void BuildPartC();
     }
 
-    //Robot is what is being constructed
+    //Here is the Robot class
     public class Robot
     {
         private List<object> _parts = new List<object>();
@@ -58,7 +56,7 @@ namespace Patterns.Builder
 
     //The concrete builder implements the builder contract
     //Different builders could implement the same contract in different ways
-    //There can also be various contracts
+    //The Builder assembles the Parts of an object (in this case the parts of a Robot)
     public class ConcreteRobotBuilder : IRobotBuilder
     {
         private Robot robot = new Robot();
@@ -104,9 +102,9 @@ namespace Patterns.Builder
         }
     }
 
-    //Optionally there is a Director class 
-    //The Director class can define the order in which build steps are executed
-    //The Director may also know several combinations of build steps to execute in order to get various valid Robot builds
+    //This is a Director class
+    //The Director assembles the parts into a whole, whereas the Builder focuses on building the parts
+    //The Director is responsible for the various assemblies, how to assemble them, which parts, and what order
     public class Director
     {
         private IRobotBuilder _robotBuilder;

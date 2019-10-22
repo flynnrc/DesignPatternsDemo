@@ -12,6 +12,9 @@ namespace PatternsTests
         [TestMethod]
         public void Decorator_ArmoredBear_ShouldHaveBonusArmor()
         {
+            //Decorator Pattern to attach new behaviors to an object
+            //This test takes a normal bear and decorates it in armor, and then checks the Health value of the bear
+
             //Arrange
             var bear = new BasicBear();
 
@@ -25,6 +28,9 @@ namespace PatternsTests
         [TestMethod]
         public void Decorator_ArmoredBear_HasExpectedComments()
         {
+            //Decorator Pattern to attach new behaviors to an object
+            //This test takes a normal bear and decorates it in armor, and looks at the Commentary field changes
+
             //Arrange
             var bear = new BasicBear();
             var comment1 = "It's a bear, with armor.";
