@@ -6,17 +6,19 @@ namespace Patterns.FactoryMethod
 {
     //Note: This is demo code only for quick viewing, normally each class would have its own file
 
-    #region Bread Stores
+    //Factory Method
+    //Allows a class to defer instantiation to subclasses, and to prevent direct instantiation of an object of the parent class type.
+    //Use Factory Methods when you want to reuse common functionality with different components and decouple the implementation from its usage
+    //To use, define an interface, abstraction, or default implementation that can then be implemented or overriden by a concrete class 
 
-    //This BreadStore class will have the factory method that will return a type of bread to create.
-    //Other classes will derive from this and add the implementation of CreateBread, taking the responsiblity of what bread to create.
+    #region Abstract BreadStore w/Factory Method
+    //The abstract class BreadStore declares a factory method for its subclasses to implement
     public abstract class BreadStore
     {
-        //the factory method -- it could have some default implementation
+        //the factory method -- it can be completely abstract or have a default implmentation
         protected abstract IBread CreateBread();
 
-        //This method will use the above factory method to produce a bread
-        //The store is responsible for the type of bread, the other steps are generic
+        //This method calls the Factory Method -- the subclass knows which bread to get
         public string OrderBread()
         {
             var bread = CreateBread();
@@ -27,7 +29,12 @@ namespace Patterns.FactoryMethod
         }
     }
 
-    //here are the derived classes that have implementations for the FactoryMethod
+    #endregion
+
+    #region Derived BreadStores w/Factory Method Implementations
+
+    //Derived classes that implement the Factory Method
+
     public class FlatBreadStore : BreadStore
     {
         protected override IBread CreateBread()
@@ -48,9 +55,19 @@ namespace Patterns.FactoryMethod
 
     #region Breads
 
-    //These are the Bread interfaces and implementations
-    //The factory method of a store will ultimately return a Bread implementation to the store
+    //Bread is the return type of the Factory Method implementations in this example
+    //The store subclasses choose which Bread to produce
 
+    //Declares the Bread contract
+    public interface IBread
+    {
+        void Prepare();
+        void Bake();
+        void Package();
+        string GetName();
+    }
+
+    //some default implementation for certain Breads to derive from
     public abstract class Bread : IBread
     {
         public abstract void Prepare();
@@ -59,6 +76,7 @@ namespace Patterns.FactoryMethod
         public abstract string GetName();
     }
 
+    //concrete breads
     public class PitaBread : Bread
     {
         public override string GetName()
@@ -86,13 +104,6 @@ namespace Patterns.FactoryMethod
         }
 
     }
-
-    public interface IBread
-    {
-        void Prepare();
-        void Bake();
-        void Package();
-        string GetName();
-    }
+   
     #endregion
 }
