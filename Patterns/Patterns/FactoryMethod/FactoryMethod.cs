@@ -4,106 +4,106 @@ using System.Text;
 
 namespace Patterns.FactoryMethod
 {
-    //Note: This is demo code only for quick viewing, normally each class would have its own file
+    //Note: This is demo code only for quick viewing, normally you should put each class in its own file
 
     //Factory Method
-    //Allows a class to defer instantiation to subclasses, and to prevent direct instantiation of an object of the parent class type.
-    //Use Factory Methods when you want to reuse common functionality with different components and decouple the implementation from its usage
-    //To use, define an interface, abstraction, or default implementation that can then be implemented or overriden by a concrete class 
+    //Decouples the implementation of a product from its use.
+    //Encapsulates object creation.
+    //Allows a class to defer instantiation to subclasses. (allows for polymorphism and variation of subclasses)
+    //Use Factory Methods when you want to reuse common functionality, but defer instantiation to subclasses
+    //To implement, define an IFactory interface with a method that instantiates a type of product and an IProduct interface to define the type of object the factory method should produce
 
-    #region Abstract BreadStore w/Factory Method
-    //The abstract class BreadStore declares a factory method for its subclasses to implement
-    public abstract class BreadStore
+    //In this example, there are several factories that instantiate animals. Each factory encapsulates its own logic for producing the animal. 
+    //The concrete factory class determines the instantiation rules not the caller. You can imagine that different factories may have unique rules on how to produce the animal,
+    //maybe some animals are seasonal for one region, another produces them randomly, or another is limited to only certain subsets of animal etc... 
+
+    //tips
+    //you can use multiple factory methods to fit the level of customization required
+    //you can provide some default implementation and re-use some functionality, if you use an abstraction that allows default implementations
+
+    #region Product - Class - Animal
+
+    //this is the product interface, in this case an Animal
+    public interface IAnimal
     {
-        //the factory method -- it can be completely abstract or have a default implmentation
-        protected abstract IBread CreateBread();
-
-        //This method calls the Factory Method -- the subclass knows which bread to get
-        public string OrderBread()
-        {
-            var bread = CreateBread();
-            bread.Prepare();
-            bread.Bake();
-            bread.Package();
-            return bread.GetName();
-        }
     }
 
+    //concrete animals
+    public class Dog : IAnimal
+    {
+
+    }
+
+    public class Cat : IAnimal
+    {
+
+    }
+
+    public class HoneyBadger : IAnimal
+    {
+        //HoneyBadger don't care
+    }
+
+    public class Rabbit : IAnimal
+    {
+
+    }
+
+    public class Frog : IAnimal
+    {
+    }
+
+    public class Fish : IAnimal
+    {
+    }
+
+    public class Eel : IAnimal
+    {
+
+    }
     #endregion
 
-    #region Derived BreadStores w/Factory Method Implementations
-
-    //Derived classes that implement the Factory Method
-
-    public class FlatBreadStore : BreadStore
+    #region Creator - Factory - AnimalFactory
+    //animal factory contract -- can be an interface or abstract base class
+    //defines any factory methods
+    public interface IAnimalFactory
     {
-        protected override IBread CreateBread()
+        IAnimal GetAnimal();
+    }
+
+    //concrete factories, implement the factory method(s)
+    public class FreshWaterAnimalFactory : IAnimalFactory
+    {
+        //some additional logic
+
+        public IAnimal GetAnimal()
         {
-            return new PitaBread();
+            //some additional logic
+            return new Frog();
         }
     }
 
-    public class FrenchBreadStore : BreadStore
+    public class HouseHoldAnimalFactory : IAnimalFactory
     {
-        protected override IBread CreateBread()
+        //some additional logic
+
+        public IAnimal GetAnimal()
         {
-            return new FrenchBread();
+            //some additional logic
+            return new Dog();
         }
     }
 
-    #endregion
-
-    #region Breads
-
-    //Bread is the return type of the Factory Method implementations in this example
-    //The store subclasses choose which Bread to produce
-
-    //Declares the Bread contract
-    public interface IBread
+    public class WoodlandCreatureAnimalFactory : IAnimalFactory
     {
-        void Prepare();
-        void Bake();
-        void Package();
-        string GetName();
+        //some additional logic
+
+        public IAnimal GetAnimal()
+        {
+            //some additional logic
+            return new Rabbit();
+        }
     }
 
-    //some default implementation for certain Breads to derive from
-    public abstract class Bread : IBread
-    {
-        public abstract void Prepare();
-        public void Bake() { }
-        public void Package() { }
-        public abstract string GetName();
-    }
-
-    //concrete breads
-    public class PitaBread : Bread
-    {
-        public override string GetName()
-        {
-            return "Made a Pita Bread";
-        }
-
-        public override void Prepare()
-        {
-            //doing something unique for this bread type
-        }
-
-    }
-
-    public class FrenchBread : Bread
-    {
-        public override string GetName()
-        {
-            return "Made a French Bread";
-        }
-
-        public override void Prepare()
-        {
-            //doing something unique for this bread type
-        }
-
-    }
-   
     #endregion
 }

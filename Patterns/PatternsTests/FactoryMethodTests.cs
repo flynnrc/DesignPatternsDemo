@@ -9,30 +9,31 @@ namespace PatternsTests
     [TestClass]
     public class FactoryMethodTests
     {
+
         [TestMethod]
-        public void FactoryMethod_FlatBreadStore_ShouldMakePitaBread()
+        public void FactoryMethod_FreshWaterAnimalFactory_ShouldReturnFreshWaterAnimal()
         {
             //Arrange
-            var store = new FlatBreadStore();
-            
+            var sut = new FreshWaterAnimalFactory();
+
             //Act
-            var result = store.OrderBread();
+            var result = sut.GetAnimal();
 
             //Assert
-            Assert.IsTrue(result.Contains("Made a Pita Bread"));
+            Assert.IsTrue(result.GetType().Name == "Frog");
         }
 
         [TestMethod]
-        public void FactoryMethod_FlatBreadStore_ShouldMakeFrenchBread()
+        public void FactoryMethod_HouseHoldAnimalFactory_ShouldReturnHouseholdAnimal()
         {
             //Arrange
-            var store = new FrenchBreadStore();
-            
+            var sut = new HouseHoldAnimalFactory();
+
             //Act
-            var result = store.OrderBread();
+            var result = sut.GetAnimal();
 
             //Assert
-            Assert.IsTrue(result.Contains("French"));
+            Assert.IsTrue(result.GetType().Name == "Dog");
         }
     }
 }
