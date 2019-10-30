@@ -17,12 +17,31 @@ namespace PatternsTests
 
             //Arrange
             var bear = new BasicBear();
+            var additionalHealth = 1;
 
             //Act
             var armoredBear = new ArmoredBear(bear);
 
             //Assert
-            Assert.IsTrue(armoredBear.Health == bear.Health + 1);
+            Assert.IsTrue(armoredBear.Health == bear.Health + additionalHealth);
+        }
+
+        [TestMethod]
+        public void Decorator_ArmoredBearTwice_ShouldHaveExpectedArmor()
+        {
+            //Decorator Pattern to attach new behaviors to an object
+            //This test takes a normal bear and decorates it in armor, and then checks the Health value of the bear
+
+            //Arrange
+            var bear = new BasicBear();
+            var additionalArmor = 2;
+
+            //Act
+            var armoredHealth = new ArmoredBear(bear);
+            armoredHealth = new ArmoredBear(armoredHealth);
+
+            //Assert
+            Assert.IsTrue(armoredHealth.Health == bear.Health + additionalArmor);
         }
 
         [TestMethod]

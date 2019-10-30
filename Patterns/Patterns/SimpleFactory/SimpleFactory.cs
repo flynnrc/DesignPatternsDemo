@@ -5,23 +5,28 @@ using System.Text;
 namespace Patterns.SimpleFactory
 {
 
-    //Simple Factory (SF) is not a true pattern, but it's a DRY code construct and a precursor to complex factories
+    //Simple Factory (SF):
     //SF encapsulates object creation
-    //One drawback of SF is that object creation is coupled to the creator, so code changes are required to stay in sync
-    //In some cases the SF may become too complicated, which may indicate that it's time to swap it for a complex factory
+    //SF is not a true pattern, but it's a precursor to complex factories, and a DRY principle code construct
+    //One drawback of SF is that object creation is dependent on the callers information, in simple cases this is okay
+    //Pitfalls: Code changes are required to stay in sync as different objects are added, often seen as a growing switch stmt
+    //In some cases the SF may become too complicated, which indicates that it may be time to swap it for a more complex factory
     //The factory method pattern completely decouples object creation and adds polymorphism. SF only handles creation.
 
-    //Implementation -- typically SF is achieved by a single class called a factory, a product Interface, and concrete products
+    //Implementation:
+    //Typically SF has a factory that accepts input to help decide which object to create
+    //There is also a product Interface to set a contract for what the factory ultimately produces
 
-    //This example uses an IceCreamFactory. 
-    //The ice cream factory accepts an enum to help determine what time of ice cream product to produce.
-    //Any ice cream can be produced, so long as it's a part of the factory and it adheres to the interface contract
+    //IceCreamFactory Example: 
+    //The ice cream factory accepts an enum to help determine what type of ice cream product to make.
+    //Any ice cream can be produced, so long as it's a part of the factory and fulfills the contract
 
     #region Factory -- Ice Cream Factory
     public class SimpleIceCreamFactory
     {
         public static IIceCream Create(Flavor type)
         {
+            //This is a simple case so it works great!
             switch (type)
             {
                 case Flavor.Vanilla:
@@ -39,6 +44,9 @@ namespace Patterns.SimpleFactory
                 default:
                     return new Vanilla();
             }
+            //Try to imagine a situation where the cases become complex
+            //or the number of cases grows too large
+            //In those situation this could become unwieldy 
         }
     }
 

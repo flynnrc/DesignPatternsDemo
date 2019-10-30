@@ -16,10 +16,14 @@ namespace Patterns.Builder
     public interface IRobotBuilder
     {
         //Added return type of IRobotBuilder in order to to enable fluid syntax
+
+        //Build part 1
         IRobotBuilder BuildRobotCore();
 
+        //Build part 2
         IRobotBuilder BuildRobotLegs();
 
+        //Build part 3
         IRobotBuilder BuildRobotArms();
 
         ////non-fluid void return
@@ -73,7 +77,7 @@ namespace Patterns.Builder
         }
 
 
-        //Build Methods
+        //Build Methods Build parts
         public IRobotBuilder BuildRobotCore()
         {
             robot.Add("Robot Brains");
@@ -95,11 +99,18 @@ namespace Patterns.Builder
         public Robot GetRobot()
         {
             var result = this.robot;
-
-            //this.Reset();//it's not manditory to reset here, but typically once you GET it's done building//but I would rename Get to GetAndReset
-
             return result;
         }
+
+        //optional
+        //public Robot GetAndResetRobot()
+        //{
+        //    var result = this.robot;
+
+        //    this.Reset();//it's not manditory to reset here, but typically once you GET, it's done building
+
+        //    return result;
+        //}
     }
 
     //This is a Director class
@@ -115,11 +126,14 @@ namespace Patterns.Builder
         }
 
         // The Director can construct several product variations using the same building steps.
+
+        //Product variation 1
         public void BuildLowBudgetRobot()
         {
             this._robotBuilder.BuildRobotCore();
         }
 
+        //Product variation 2
         public void BuildFullFeaturedRobot()
         {
             this._robotBuilder.BuildRobotCore();
