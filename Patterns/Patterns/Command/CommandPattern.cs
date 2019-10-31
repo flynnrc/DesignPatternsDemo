@@ -4,12 +4,7 @@ using System.Linq;
 
 namespace Patterns
 {
-    //Command Pattern:
-    //Encapsulates requests 
-    //Inject that command object into an invoker
-    //The invoker class can be as fancy or as simple as needed (undo, repeat, batch commands etc...)
-    //The concrete commands act on a receiver
-    //command classes are usually limited to specific actions some support undo functionality
+    
 
     //Command contract
     public interface ICommand
@@ -19,7 +14,7 @@ namespace Patterns
         void Undo();
     }
 
-    //Concrete command
+    //Concrete command 1
     public class TurnOnLightCommand : ICommand
     {
         private Lightbulb lb;
@@ -41,7 +36,7 @@ namespace Patterns
     }
 
     #region Receiver
-    //Receiver -- Something commands can act on
+    //Receiver -- Something a command can act on
     public class Lightbulb : ILight
     {
         public Lightbulb()
@@ -59,7 +54,10 @@ namespace Patterns
     }
     #endregion
 
-    //Invoker -- Coordinates commands
+    #region Invoker
+    //Invoker -- Coordinates and keeps track of ICommands 
+    //-- not part of the core pattern, and you could create any invokers so long as they accept ICommands
+    //Invokers could be a command queue or a straight up mapping of commands, it's free
     public class CommandInvoker
     {
         public static Queue<ICommand> commandStack = new Queue<ICommand>();
@@ -84,4 +82,6 @@ namespace Patterns
             command.Undo();
         }
     }
+
+    #endregion
 }
