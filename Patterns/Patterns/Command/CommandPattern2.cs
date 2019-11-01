@@ -13,18 +13,20 @@ namespace Patterns.Command
     //The Receiver class represents some business object that a Command acts on
     //The Invoker class manages Commands according to "what needs to be done" for the business logic (batch, logging, undo, history etc...)
 
+    //Demo Example Explanation: 
+    //Imagine you're setting a game controllers (invoker) buttons, so when pressed it can Command a character in a game (Reciever)
+    //to perform certain actions. The controller could be reprogrammable. 
+
     #region Commands
+    //Commands Encapsulate the execution of a receivers action
+
+    //declares a method for executing a command
     public interface ICommand
     {
         CommandResult Execute();//could return void or any other type of Result object
     }
-    #endregion
 
-    #region Concrete commands
-
-    //Commands Encapsulate the execution of a receivers action
-
-    //Command
+    //Concrete Command
     public class JumpCommand : ICommand
     {
         private ICharacterController controller;
@@ -41,7 +43,7 @@ namespace Patterns.Command
         }
     }
 
-    //Command
+    //Concrete Command
     public class DashCommand : ICommand
     {
         private ICharacterController controller;
